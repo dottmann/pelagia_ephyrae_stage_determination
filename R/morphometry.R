@@ -14,11 +14,9 @@
 
 #######################################################################################################################
 
-
 ##################################################################
-# Set the working directory
-setwd("C:/Users/danie/Google Drive/_phd/Projects/ephyrae/pelagia_ephyrae_stage_determination/")
-
+# Clear environment:
+rm(list = ls())
 
 #############################
 # Load packages:
@@ -28,7 +26,7 @@ library(tidyverse)
 #############################################################
 # Load the data
 
-data <- read.delim('in/data_morphometrics.txt', sep = '\t', header = T, stringsAsFactors = F, dec = ".")
+data <- read.delim('data/data_morphometrics.txt', sep = '\t', header = T, stringsAsFactors = F, dec = ".")
 
 
 # Edit data frame and get table of min, max, mean and SD for each measurement and stage:
@@ -41,8 +39,5 @@ data %>%
             max_tbd = max(size_mm))
 
 
-
-
-  
-  
-  
+#                            END OF CODE
+###########################################################################

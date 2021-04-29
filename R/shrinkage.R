@@ -1,15 +1,15 @@
 
-#   Ephyrae shrincage
+#   Ephyrae shrinkage
 
 # Author: Daniel Ottmann
 # Created: July 2020
-# Last update: Aoril 2021
+# Last update: April 2021
 
 
 ###########################################
 #       Readme
 
-# This script evaluates the shrincage of ephyrae after formaline 4% preservation
+# This script evaluates the shrinkage of ephyrae after formaline 4% preservation
 # Samples were colected in June/July 2019 in the TUNIBAL survey around the Balearic Islands
 # Central Disc Diamter of ephryae were measured inmediatelly after sampling and 4-6?? months after preservation
 
@@ -18,9 +18,8 @@
 
 
 ##################################################################
-# Set the working directory
-setwd("C:/Users/danie/Google Drive/_phd/Projects/ephyrae/pelagia_ephyrae_stage_determination/")
-
+# Clear environment:
+rm(list = ls())
 
 #############################
 # Load packages:
@@ -29,19 +28,19 @@ library(tidyverse)
 
 #############################################################
 # Load the data
-data <- read.delim('in/data_shrincage.txt', sep = '\t', header = T, stringsAsFactors = F, dec = ".")
+data <- read.delim('data/data_shrinkage.txt', sep = '\t', header = T, stringsAsFactors = F, dec = ".")
 
 
 #########################
 # Edit data frame:
 df <- data %>%
-  mutate(cdd_shrincage = cdd_preserved - cdd_fresh,
-         shrincage_ratio = -100 * (cdd_shrincage / cdd_fresh)) %>%
-  filter(cdd_shrincage < 0)
+  mutate(cdd_shrinkage = cdd_preserved - cdd_fresh,
+         shrinkage_ratio = -100 * (cdd_shrinkage / cdd_fresh)) %>%
+  filter(cdd_shrinkage < 0)
 
 
 ########################################################
-# Get equation of shrincage as a function of live size:
+# Get equation of shrinkage as a function of live size:
 m0 <- lm(cdd_preserved ~ cdd_fresh, data = df)
 
 summary(m0)  # CDD_preserved = 0.05 + 0.72 * CDD_live  ;  R^2 = 0.92
@@ -65,14 +64,14 @@ dev.off()
 
 
 ######################################################
-# Test differences of % shrincage across sizes:
-m0 <- lm(shrincage_ratio ~ cdd_fresh, data = df)
-m1 <- lm(shrincage_ratio ~ 1, data = df)
+# Test differences of % shrinkage across sizes:
+m0 <- lm(shrinkage_ratio ~ cdd_fresh, data = df)
+m1 <- lm(shrinkage_ratio ~ 1, data = df)
 
 anova(m0, m1) # Not signifficant
 
 # What is the average schrincage?
-mean(df$shrincage_ratio)  # 24.6 %
+mean(df$shrinkage_ratio)  # 24.6 %
 
 
 ######################
@@ -106,11 +105,11 @@ dev.off()
 
 
 ###########################################
-# Plot % shrincage across size and stages:
+# Plot % shrinkage across size and stages:
 p <- ggplot(data = df) +
-  geom_point(aes(x = cdd_fresh, y = shrincage_ratio, color = stage), alpha = .5) +
+  geom_point(aes(x = cdd_fresh, y = shrinkage_ratio, color = stage), alpha = .5) +
   labs(color = "Stage") +
-  geom_smooth(aes(x = cdd_fresh, y = shrincage_ratio), method = "lm", color = "black", size = .5, alpha = .3) +
+  geom_smooth(aes(x = cdd_fresh, y = shrinkage_ratio), method = "lm", color = "black", size = .5, alpha = .3) +
   ylab("% shrinkage") +
   xlab("Live CDD (mm)") +
   theme_bw() +

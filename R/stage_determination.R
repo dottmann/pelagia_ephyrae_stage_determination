@@ -17,9 +17,8 @@
 
 
 ##################################################################
-# Set the working directory
-setwd("C:/Users/danie/Google Drive/_phd/Projects/ephyrae/pelagia_ephyrae_stage_determination/")
-
+# Clear environment:
+rm(list = ls())
 
 #############################
 # Load packages:
@@ -28,7 +27,7 @@ library(tidyverse)
 
 #############################################################
 # Load the data
-data <- read.delim('in/data_stage_determination.txt', sep = '\t', header = T, stringsAsFactors = F, dec = ".")
+data <- read.delim('data/data_stage_determination.txt', sep = '\t', header = T, stringsAsFactors = F, dec = ".")
 
 
 ###############################################
@@ -189,7 +188,7 @@ p <- ggplot() +
         legend.position = c(.8, .75),
         panel.grid = element_blank())
 
-# png(filename = "plots/boxplot.png", width = 7, height = 7, units = "cm", res = 300)
+# png(filename = "plots/stage_boxplot.png", width = 7, height = 7, units = "cm", res = 300)
 p
 dev.off()
 
@@ -226,19 +225,19 @@ p
 dev.off()
 
 # As violin plots:
-p <- ggplot() +
-  geom_violin(data = df, aes(x = reorder(stage, -log_size), y = log_size, fill = year), size = .5) +
-  ylab("Log (central disc diameter (mm))") +
-  xlab("Stage") +
-  coord_flip() +
-  theme_bw() +
-  theme(legend.title = element_blank(),
-        legend.position = c(.8, .75),
-        panel.grid = element_blank())
-
-# png(filename = "plots/log_violin.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
+# p <- ggplot() +
+#   geom_violin(data = df, aes(x = reorder(stage, -log_size), y = log_size, fill = year), size = .5) +
+#   ylab("Log (central disc diameter (mm))") +
+#   xlab("Stage") +
+#   coord_flip() +
+#   theme_bw() +
+#   theme(legend.title = element_blank(),
+#         legend.position = c(.8, .75),
+#         panel.grid = element_blank())
+# 
+# # png(filename = "plots/log_violin.png", width = 7, height = 7, units = "cm", res = 300)
+# p
+# dev.off()
 
 
 #                              END OF SCRIPT
