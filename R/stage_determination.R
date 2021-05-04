@@ -23,6 +23,7 @@ rm(list = ls())
 #############################
 # Load packages:
 library(tidyverse)
+library(cowplot)
 
 
 #############################################################
@@ -55,52 +56,40 @@ df$fits <- fitted(m0)
 
 
 # Plot it out:
-p <- ggplot() +
+p1 <- ggplot() +
   geom_point(data = df, aes(x = fits, y = residuals)) +
   ylab("Residuals") +
   xlab("Fitted values") +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/stage_residual_vs_fits.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
-
 # Plot residuals vs parameters:
 # Year:
-p <- ggplot() +
+p2 <- ggplot() +
   geom_point(data = df, aes(x = year, y = residuals)) +
   ylab("Residuals") +
   xlab("Year") +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/stage_residual_vs_year.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
-
 # Stage:
-p <- ggplot() +
+p3 <- ggplot() +
   geom_point(data = df, aes(x = stage, y = residuals)) +
   ylab("Stage") +
   xlab("Fitted values") +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/stage_residual_vs_stage.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
-
-
 # Normal QQ-plot:
-p <- ggplot(data = df, aes(sample = residuals)) +
+p4 <- ggplot(data = df, aes(sample = residuals)) +
   stat_qq() + stat_qq_line() +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/stage_QQ.png", width = 7, height = 7, units = "cm", res = 300)
-p
+# png(filename = "plots/stage_diagnostics.png", width = 14, height = 14, units = "cm", res = 300)
+plot_grid(p1, p2, p3, p4, labels = "auto")
 dev.off()
+
 
 # There is heterogeneity at different stages: older stages have grater residuals
 
@@ -126,51 +115,38 @@ df$residuals <- resid(m0, type = "pearson")
 df$fits <- fitted(m0)
 
 # Plot it out:
-p <- ggplot() +
+p1 <- ggplot() +
   geom_point(data = df, aes(x = fits, y = residuals)) +
   ylab("Residuals") +
   xlab("Fitted values") +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/log_stage_residual_vs_fits.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
-
 # Plot residuals vs parameters:
 # Year:
-p <- ggplot() +
+p2 <- ggplot() +
   geom_point(data = df, aes(x = year, y = residuals)) +
   ylab("Residuals") +
   xlab("Year") +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/log_stage_residual_vs_year.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
-
 # Stage:
-p <- ggplot() +
+p3 <- ggplot() +
   geom_point(data = df, aes(x = stage, y = residuals)) +
   ylab("Stage") +
   xlab("Fitted values") +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/log_stage_residual_vs_stage.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
-
-
 # Normal QQ-plot:
-p <- ggplot(data = df, aes(sample = residuals)) +
+p4 <- ggplot(data = df, aes(sample = residuals)) +
   stat_qq() + stat_qq_line() +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/log_stage_QQ.png", width = 7, height = 7, units = "cm", res = 300)
-p
+# png(filename = "plots/log_stage_diagnostics.png", width = 14, height = 14, units = "cm", res = 300)
+plot_grid(p1, p2, p3, p4, labels = "auto")
 dev.off()
 
 # Now it looks good
@@ -223,21 +199,6 @@ p <- ggplot() +
 # png(filename = "plots/log_boxplot.png", width = 7, height = 7, units = "cm", res = 300)
 p
 dev.off()
-
-# As violin plots:
-# p <- ggplot() +
-#   geom_violin(data = df, aes(x = reorder(stage, -log_size), y = log_size, fill = year), size = .5) +
-#   ylab("Log (central disc diameter (mm))") +
-#   xlab("Stage") +
-#   coord_flip() +
-#   theme_bw() +
-#   theme(legend.title = element_blank(),
-#         legend.position = c(.8, .75),
-#         panel.grid = element_blank())
-# 
-# # png(filename = "plots/log_violin.png", width = 7, height = 7, units = "cm", res = 300)
-# p
-# dev.off()
 
 
 #                              END OF SCRIPT

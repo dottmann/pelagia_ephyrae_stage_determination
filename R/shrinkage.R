@@ -24,6 +24,7 @@ rm(list = ls())
 #############################
 # Load packages:
 library(tidyverse)
+library(cowplot)
 
 
 #############################################################
@@ -82,25 +83,23 @@ df$residuals <- resid(m0, type = "pearson")
 df$fits <- fitted(m0)
 
 # Plot it out:
-p <- ggplot() +
+p1 <- ggplot() +
   geom_point(data = df, aes(x = fits, y = residuals)) +
   ylab("Residuals") +
   xlab("Fitted values") +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/shrinkage_residual_vs_fits.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
 
 # Normal QQ-plot:
-p <- ggplot(data = df, aes(sample = residuals)) +
+p2 <- ggplot(data = df, aes(sample = residuals)) +
   stat_qq() + stat_qq_line() +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/srinkage_QQ.png", width = 7, height = 7, units = "cm", res = 300)
-p
+
+# png(filename = "plots/shrinkage_diagnostics.png", width = 14, height = 7, units = "cm", res = 300)
+plot_grid(p1, p2,labels = "auto")
 dev.off()
 
 
