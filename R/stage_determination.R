@@ -29,6 +29,7 @@ library(cowplot)
 #############################################################
 # Load the data
 data <- read.delim('data/data_stage_determination.txt', sep = '\t', header = T, stringsAsFactors = F, dec = ".")
+load("data/data_stage_determination.RData")
 
 
 ###############################################

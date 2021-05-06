@@ -29,8 +29,7 @@ library(cowplot)
 
 #############################################################
 # Load the data
-data <- read.delim('data/data_shrinkage.txt', sep = '\t', header = T, stringsAsFactors = F, dec = ".")
-
+load("data/data_shrinkage.RData")
 
 #########################
 # Edit data frame:

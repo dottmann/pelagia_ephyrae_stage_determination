@@ -25,9 +25,7 @@ library(tidyverse)
 
 #############################################################
 # Load the data
-
-data <- read.delim('data/data_morphometrics.txt', sep = '\t', header = T, stringsAsFactors = F, dec = ".")
-
+load("data/data_morphometrics.RData")
 
 # Edit data frame and get table of min, max, mean and SD for each measurement and stage:
 data %>%
