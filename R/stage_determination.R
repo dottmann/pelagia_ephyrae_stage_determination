@@ -3,7 +3,7 @@
 
 # Author: Daniel Ottmann
 # Created: April 2021
-# Last update: April 2021
+# Last update: June 2021
 
 
 ###########################################
@@ -20,6 +20,9 @@
 # Clear environment:
 rm(list = ls())
 
+# Plot commands:
+outfile_plots <- F
+
 #############################
 # Load packages:
 library(tidyverse)
@@ -28,7 +31,6 @@ library(cowplot)
 
 #############################################################
 # Load the data
-data <- read.delim('data/data_stage_determination.txt', sep = '\t', header = T, stringsAsFactors = F, dec = ".")
 load("data/data_stage_determination.RData")
 
 
@@ -87,9 +89,14 @@ p4 <- ggplot(data = df, aes(sample = residuals)) +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/stage_diagnostics.png", width = 14, height = 14, units = "cm", res = 300)
-plot_grid(p1, p2, p3, p4, labels = "auto")
-dev.off()
+# Make plot:
+if (outfile_plots == T) {
+  png(filename = "plots/stage_diagnostics.png", width = 14, height = 14, units = "cm", res = 300)
+  print(plot_grid(p1, p2, p3, p4, labels = "auto"))
+  dev.off()
+} else {
+  plot_grid(p1, p2, p3, p4, labels = "auto")
+}
 
 
 # There is heterogeneity at different stages: older stages have grater residuals
@@ -146,15 +153,20 @@ p4 <- ggplot(data = df, aes(sample = residuals)) +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/log_stage_diagnostics.png", width = 14, height = 14, units = "cm", res = 300)
-plot_grid(p1, p2, p3, p4, labels = "auto")
-dev.off()
+# Make plots:
+if (outfile_plots == T) {
+  png(filename = "plots/log_stage_diagnostics.png", width = 14, height = 14, units = "cm", res = 300)
+  print(plot_grid(p1, p2, p3, p4, labels = "auto"))
+  dev.off()
+} else {
+  plot_grid(p1, p2, p3, p4, labels = "auto")
+}
 
 # Now it looks good
 
 
 ###############################
-# Plot original data as boxplot:
+# Plot original data boxplot:
 p <- ggplot() +
   geom_boxplot(data = df, aes(x = reorder(stage, -size_mm), y = size_mm, fill = year), size = .5, outlier.size = 1) +
   ylab("Central disc diameter (mm)") +
@@ -165,28 +177,17 @@ p <- ggplot() +
         legend.position = c(.8, .75),
         panel.grid = element_blank())
 
-# png(filename = "plots/stage_boxplot.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
-
-# As violin plots:
-p <- ggplot() +
-  geom_violin(data = df, aes(x = reorder(stage, -size_mm), y = size_mm, fill = year), size = .5) +
-  ylab("Central disc diameter (mm)") +
-  xlab("Stage") +
-  coord_flip() +
-  theme_bw() +
-  theme(legend.title = element_blank(),
-        legend.position = c(.8, .75),
-        panel.grid = element_blank())
-
-# png(filename = "plots/violin.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
+if (outfile_plots == T) {
+  png(filename = "plots/stage_boxplot.png", width = 7, height = 7, units = "cm", res = 300)
+  print(p)
+  dev.off()
+} else {
+  p
+}
 
 
 ########################################
-# Plot log-transformed data as boxplot:
+# Plot log-transformed data boxplot:
 p <- ggplot() +
   geom_boxplot(data = df, aes(x = reorder(stage, -log_size), y = log_size, fill = year), size = .5, outlier.size = 1) +
   ylab("Log (central disc diameter (mm))") +
@@ -197,9 +198,13 @@ p <- ggplot() +
         legend.position = c(.8, .75),
         panel.grid = element_blank())
 
-# png(filename = "plots/log_boxplot.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
+if (outfile_plots == T) {
+  png(filename = "plots/log_boxplot.png", width = 7, height = 7, units = "cm", res = 300)
+  print(p)
+  dev.off()
+} else {
+  p
+}
 
 
 #                              END OF SCRIPT

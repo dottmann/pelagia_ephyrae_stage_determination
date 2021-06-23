@@ -3,7 +3,7 @@
 
 # Author: Daniel Ottmann
 # Created: July 2020
-# Last update: April 2021
+# Last update: June 2021
 
 
 ###########################################
@@ -20,6 +20,9 @@
 ##################################################################
 # Clear environment:
 rm(list = ls())
+
+# Plot commands:
+outfile_plots <- F
 
 #############################
 # Load packages:
@@ -58,9 +61,13 @@ p <- ggplot(data = df) +
   theme(panel.grid = element_blank(),
         legend.position = c(.17, .7))
 
-# png(filename = "plots/shrinkage.png", width = 7, height = 7, units = "cm", res = 300)
-p
-dev.off()
+if (outfile_plots == T) {
+png(filename = "plots/shrinkage.png", width = 7, height = 7, units = "cm", res = 300)
+print(p)
+dev.off() 
+} else {
+  p
+}
 
 
 ######################################################
@@ -72,6 +79,7 @@ anova(m0, m1) # Not signifficant
 
 # What is the average schrincage?
 mean(df$shrinkage_ratio)  # 24.6 %
+sd(df$shrinkage_ratio)  # 12.8 %
 
 
 ######################
@@ -113,9 +121,13 @@ p <- ggplot(data = df) +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# png(filename = "plots/shrinkage_ratio.png", width = 9, height = 6, units = "cm", res = 300)
-p
+if (outfile_plots == T) {
+png(filename = "plots/shrinkage_ratio.png", width = 9, height = 6, units = "cm", res = 300)
+print(p)
 dev.off()
+} else {
+  p
+}
 
 
 #                              END OF SCRIPT
