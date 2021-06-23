@@ -4,7 +4,7 @@
 ![alt text](link)
 
 
-This repository contain all files needed to run the analysis and generate the figures presented in the paper (Ottmann et al: "Stage determination of ephyrae and metaephyrae of *Pelagica noctiluca*"). 
+This repository contains all files needed to run the analysis and generate the figures presented in the paper (Ottmann et al: "Stage determination of ephyrae and metaephyrae of *Pelagica noctiluca*"). 
 
 It has 3 folders containing the source code, data files and figures. The code is written in R by Daniel Ottmann.
 
