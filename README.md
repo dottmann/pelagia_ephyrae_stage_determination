@@ -6,6 +6,6 @@
 
 This repository contains all files needed to run the analysis and generate the figures presented in the paper (Ottmann et al: "Stage determination of ephyrae and metaephyrae of *Pelagica noctiluca*"). 
 
-It has 3 folders containing the source code, data files and figures. The code is written in R by Daniel Ottmann.
+It has 3 folders containing the source code, data files, and plots. The data files are in .RData and .txt formats. R code is written in R by Daniel Ottmann.
 
 Daniel Ottmann, June 2021 Spanish Institute of Oceanography, Spain
