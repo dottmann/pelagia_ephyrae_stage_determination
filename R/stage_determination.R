@@ -169,7 +169,7 @@ if (outfile_plots == T) {
 # Plot original data boxplot:
 p <- ggplot() +
   geom_boxplot(data = df, aes(x = reorder(stage, -size_mm), y = size_mm, fill = year), size = .5, outlier.size = 1) +
-  ylab("Central disc diameter (mm)") +
+  ylab("CDD (mm)") +
   xlab("Stage") +
   coord_flip() +
   theme_bw() +
